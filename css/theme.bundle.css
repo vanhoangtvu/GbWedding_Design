@@ -1,0 +1,4 @@
+/* Ghi đè màu nền footer thành hồng nhạt */
+.footer-top.gray-light-bg {
+    background: #FFD1DC !important;
+}
