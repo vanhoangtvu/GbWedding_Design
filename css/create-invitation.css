@@ -1,0 +1,283 @@
+/* Create Invitation Page Styles */
+
+/* Override header for this page */
+header#header {
+    position: fixed !important;
+    background-color: #fff !important;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.15), 0 2px 6px 2px rgba(60,64,67,0.15);
+}
+
+header#header .header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header#header .nav-wrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header#header #mainnav {
+    padding-left: 0;
+}
+
+header#header .btn_login {
+    margin-left: auto;
+}
+
+header#header .logo .logo-white {
+    display: none !important;
+}
+
+header#header .logo .logo-color {
+    display: block !important;
+}
+
+header#header .btn_login a.btn_login_button {
+    border: none;
+    background-color: #dfd733;
+    color: #fff;
+    padding: 8px 30px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+}
+
+header#header .btn_login a.btn_login_button:hover {
+    background: #c4be2d;
+    opacity: 1;
+}
+
+header#header #mainnav .menu-item a {
+    color: #000;
+}
+
+.create-invitation-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffeef3 0%, #fff5f8 100%);
+    padding-top: 120px;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #DF3367;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+/* Progress Steps */
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
+
+.progress-steps::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #999;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.step-label {
+    font-size: 0.9rem;
+    color: #999;
+    font-weight: 500;
+}
+
+.step.active .step-number {
+    background: #DF3367;
+    border-color: #DF3367;
+    color: #fff;
+}
+
+.step.active .step-label {
+    color: #DF3367;
+    font-weight: 600;
+}
+
+/* Form Styles */
+.couple-info-form {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px dashed #f0f0f0;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.section-title {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #DF3367;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #DF3367;
+    display: inline-block;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.required {
+    color: #dc3545;
+    margin-left: 3px;
+}
+
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #DF3367;
+    box-shadow: 0 0 0 0.2rem rgba(223, 51, 103, 0.15);
+}
+
+.form-control[type="file"] {
+    padding: 0.5rem 1rem;
+}
+
+/* Form Actions */
+.form-actions {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: #DF3367;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #c42957;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(223, 51, 103, 0.3);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .create-invitation-page {
+        padding-top: 100px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .couple-info-form {
+        padding: 1.5rem;
+    }
+
+    .progress-steps {
+        max-width: 100%;
+    }
+
+    .step-label {
+        font-size: 0.75rem;
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-actions .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-actions .btn.me-3 {
+        margin-right: 0 !important;
+    }
+}

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Thanh Tùng & Mỹ Duyên</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --color-primary: #4a3b32;
+            --color-bg: #F9F6F0;
+        }
+        
+        body {
+            font-family: 'Lora', serif;
+            background: #f0f2f5;
+            letter-spacing: normal;
+            word-spacing: normal;
+        }
+        
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Background flowers */
+        .bg-flower {
+            position: absolute;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        /* Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--color-primary);
+            border: 3px solid var(--color-bg);
+            border-radius: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: #ddd;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* Calendar */
+        .calendar-day {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            font-size: 0.875rem;
+            border-radius: 50%;
+        }
+        
+        .calendar-day.highlight {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 700;
+        }
+        
+        /* Cover Screen */
+        .cover-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4a3b32 0%, #5a4b42 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .cover-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .cover-card {
+            background: #F9F6F0;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heart-icon {
+            width: 60px;
+            height: 60px;
+            background: #4a3b32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 4px 12px rgba(74,59,50,0.3);
+        }
+        
+        .heart-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: #F9F6F0;
+        }
+        
+        .open-button {
+            background: #4a3b32;
+            color: #F9F6F0;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        
+        .open-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .open-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        .cover-flower-bottom {
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 250px;
+            height: auto;
+            opacity: 0.3;
+            transform: rotate(180deg);
+            transition: transform 0.6s ease-out;
+        }
+        
+        .cover-flower-top {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 300px;
+            height: auto;
+            opacity: 0.4;
+            transition: transform 0.6s ease-out;
+        }
+        
+        .cover-flower-bottom.zoom,
+        .cover-flower-top.zoom {
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden py-8">
+    <!-- Cover Screen -->
+    <div class="cover-screen" id="coverScreen">
+        <div class="cover-card">
+            <img src="template_4/flower_bottom.webp" alt="" class="cover-flower-bottom">
+            <img src="template_4/flower_top.webp" alt="" class="cover-flower-top">
+            
+            <div class="heart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            
+            <h2 class="font-serif text-4xl text-[#4a3b32] mb-2">Hoàng Nam</h2>
+            <p class="text-2xl text-gray-500 mb-2">&</p>
+            <h2 class="font-serif text-4xl text-[#4a3b32] mb-6">Thanh Tú</h2>
+            
+            <div class="text-gray-600 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-5 h-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <p class="text-xl text-gray-600 mb-4">10 tháng 5, 2026</p>
+            
+            <p class="text-lg text-[#4a3b32] font-semibold mb-2">Kính Mời</p>
+            <p class="text-gray-600 mb-6">đến dự buổi tiệc chung vui cùng gia đình</p>
+            
+            <button class="open-button" onclick="openInvitation()">Mở thiệp</button>
+        </div>
+    </div>
+    
+    <!-- Khung Thiệp -->
+    <div class="max-w-lg mx-auto bg-[#F9F6F0] shadow-2xl overflow-hidden relative">
+        <!-- Background flowers -->
+        <img src="template_4/flower_top.webp" alt="" class="absolute top-0 left-0 w-full h-auto z-10 opacity-90">
+        <img src="template_4/flower_mid.webp" alt="" class="absolute top-1/3 right-0 w-48 h-auto opacity-30">
+        <img src="template_4/fixed_flower.webp" alt="" class="absolute top-1/4 left-4 w-32 h-32 opacity-25">
+        <img src="template_4/fixed_flower_2.webp" alt="" class="absolute bottom-1/4 right-4 w-32 h-32 opacity-25">
+
+        <!-- 1. HERO SECTION - Ảnh nghiêng & Banner -->
+        <section class="relative pt-48 pb-12 px-4">
+            <!-- Khối 1: Khung trống Chú rể (trái, xoay trái) -->
+            <div class="flex items-start justify-start mb-8">
+                <div class="w-40 md:w-48 bg-[#4a3b32] p-2 shadow-lg -rotate-6 relative z-20">
+                    <div class="w-full h-52 md:h-64 bg-[#5a4b42] flex items-center justify-center">
+                        <span class="text-white/30 text-sm">Photo</span>
+                    </div>
+                </div>
+                <div class="ml-4 mt-6">
+                    <p class="text-xs text-gray-600 mb-1">ÚT NAM</p>
+                    <h2 class="font-serif text-2xl md:text-3xl text-[#4a3b32] font-bold">Hoàng Nam</h2>
+                </div>
+            </div>
+            
+            <!-- Khối 2: Banner Nâu (đè lên ảnh trên và dưới) -->
+            <div class="relative -mt-10 z-10 mb-8">
+                <img src="template_4/decoration_bar.webp" alt="Banner" class="w-full h-auto object-cover">
+            </div>
+            
+            <!-- Khối 3: Khung trống Cô dâu (phải, xoay phải) -->
+            <div class="flex items-start justify-end -mt-10 relative">
+                <div class="mr-4 mt-6 text-right">
+                    <p class="text-xs text-gray-600 mb-1">THỨ NỮ</p>
+                    <h2 class="font-serif text-2xl md:text-3xl text-[#4a3b32] font-bold">Thanh Tú</h2>
+                </div>
+                <div class="w-40 md:w-48 bg-[#4a3b32] p-2 shadow-lg rotate-6 relative z-20">
+                    <div class="w-full h-52 md:h-64 bg-[#5a4b42] flex items-center justify-center">
+                        <span class="text-white/30 text-sm">Photo</span>
+                    </div>
+                </div>
+                <!-- Hoa trang trí bên trái dưới -->
+                <img src="template_4/fixed_flower.webp" alt="" class="absolute -bottom-8 left-0 opacity-40 z-10" style="width: 200px; height: 200px;">
+            </div>
+        </section>
+
+        <!-- 2. THÔNG TIN HAI HỌ -->
+        <section class="py-12 px-4">
+            <p class="text-center text-lg mb-8 tracking-wide text-[#4a3b32]">THÔNG TIN LỄ CƯỚI</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Nhà Trai -->
+                <div class="text-center border-2 border-[#4a3b32] p-6 rounded-lg bg-white">
+                    <p class="text-sm text-gray-600 mb-2">Ông Bà</p>
+                    <p class="font-semibold text-lg mb-1 text-[#4a3b32]">Phạm Văn Toàn</p>
+                    <p class="font-semibold text-lg mb-4 text-[#4a3b32]">Nguyễn Thị Thu</p>
+                    <p class="text-sm text-gray-700">123 Đường Lê Duẩn, Quận 1, TP.HCM</p>
+                </div>
+                
+                <!-- Nhà Gái -->
+                <div class="text-center border-2 border-[#4a3b32] p-6 rounded-lg bg-white">
+                    <p class="text-sm text-gray-600 mb-2">Ông Bà</p>
+                    <p class="font-semibold text-lg mb-1 text-[#4a3b32]">Lê Văn Phúc</p>
+                    <p class="font-semibold text-lg mb-4 text-[#4a3b32]">Võ Thị Kim Oanh</p>
+                    <p class="text-sm text-gray-700">456 Đường Nguyễn Trãi, Quận 5, TP.HCM</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. LỜI MỜI & LỄ THÀNH HÔN -->
+        <section class="py-20 px-4 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="font-serif text-3xl md:text-4xl mb-4 text-[#4a3b32]">TRÂN TRỌNG</h2>
+                <h2 class="font-serif text-3xl md:text-4xl mb-8 text-[#4a3b32]">BÁO TIN</h2>
+                <p class="text-lg mb-8 text-[#4a3b32]">LỄ THÀNH HÔN CỦA CON CHÚNG TÔI</p>
+                
+                <div class="space-y-4 mb-8">
+                    <p class="text-sm text-gray-600 mb-6">ÚT NAM</p>
+                    <h1 class="font-serif text-4xl md:text-6xl mb-2 text-[#4a3b32] font-bold">Phạm Thanh Tùng</h1>
+                    <div class="my-4 text-3xl">&</div>
+                    <p class="text-sm text-gray-600 mb-6">THỨ NỮ</p>
+                    <h1 class="font-serif text-4xl md:text-6xl mb-2 text-[#4a3b32] font-bold">Lê Thị Mỹ Duyên</h1>
+                </div>
+                
+                <p class="text-lg">LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI TƯ GIA VÀO LÚC</p>
+                <p class="font-serif text-5xl font-bold mb-4 text-[#4a3b32]">09:00</p>
+                
+                <div class="flex items-center justify-center gap-4 text-2xl md:text-3xl font-serif mb-8">
+                    <span>CHỦ NHẬT</span>
+                    <span class="text-5xl font-bold text-[#4a3b32]">10</span>
+                    <span>THÁNG 05</span>
+                    <span class="text-5xl font-bold text-[#4a3b32]">2026</span>
+                </div>
+                
+                <p class="text-sm text-gray-600 italic">(Tức ngày 25/03 năm Bính Ngọ)</p>
+            </div>
+        </section>
+
+        <!-- 4. ALBUM ẢNH -->
+        <section class="py-20 px-4">
+            <h2 class="font-serif text-4xl md:text-5xl text-center mb-12 text-[#4a3b32]">ALBUM ẢNH CƯỚI</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" alt="Wedding photo 1" class="w-full h-full object-cover hover:scale-110 transition duration-300">
+                    </div>
+                    <div class="aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1606800052393-730e0005e939?w=400" alt="Wedding photo 2" class="w-full h-full object-cover hover:scale-110 transition duration-300">
+                    </div>
+                    <div class="aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400" alt="Wedding photo 3" class="w-full h-full object-cover hover:scale-110 transition duration-300">
+                    </div>
+                    <div class="aspect-square overflow-hidden rounded-lg relative">
+                        <img src="https://images.unsplash.com/photo-1591604466107-ec97de546e11?w=400" alt="Wedding photo 4" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <span class="text-white text-4xl font-bold">+4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. THÔNG TIN TIỆC CƯỚI & LỊCH -->
+        <section class="py-20 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="font-serif text-4xl md:text-5xl mb-8 text-[#4a3b32]">TIỆC CƯỚI SẼ DIỄN RA VÀO LÚC:</h2>
+                <p class="font-serif text-5xl font-bold mb-4 text-[#4a3b32]">10:30</p>
+                
+                <div class="flex items-center justify-center gap-4 text-2xl md:text-3xl font-serif mb-8">
+                    <span>CHỦ NHẬT</span>
+                    <span class="text-5xl font-bold text-[#4a3b32]">10</span>
+                    <span>THÁNG 05</span>
+                    <span class="text-5xl font-bold text-[#4a3b32]">2026</span>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4 max-w-xl mx-auto mb-12">
+                    <div class="border-2 border-[#4a3b32] p-4 rounded-lg bg-white">
+                        <p class="text-sm text-gray-600">ĐÓN KHÁCH</p>
+                        <p class="text-2xl font-bold text-[#4a3b32]">10:00</p>
+                    </div>
+                    <div class="border-2 border-[#4a3b32] p-4 rounded-lg bg-white">
+                        <p class="text-sm text-gray-600">KHAI TIỆC</p>
+                        <p class="text-2xl font-bold text-[#4a3b32]">10:30</p>
+                    </div>
+                </div>
+                
+                <!-- Calendar -->
+                <div class="max-w-xs mx-auto mb-8">
+                    <div class="border-2 border-[#4a3b32] p-4 rounded-lg bg-white">
+                        <p class="font-semibold mb-4 text-[#4a3b32]">Tháng 05/2026</p>
+                        <div class="grid grid-cols-7 gap-2">
+                            <div class="calendar-day font-semibold text-gray-600">CN</div>
+                            <div class="calendar-day font-semibold text-gray-600">T2</div>
+                            <div class="calendar-day font-semibold text-gray-600">T3</div>
+                            <div class="calendar-day font-semibold text-gray-600">T4</div>
+                            <div class="calendar-day font-semibold text-gray-600">T5</div>
+                            <div class="calendar-day font-semibold text-gray-600">T6</div>
+                            <div class="calendar-day font-semibold text-gray-600">T7</div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day">1</div>
+                            <div class="calendar-day">2</div>
+                            <div class="calendar-day">3</div>
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day">5</div>
+                            <div class="calendar-day">6</div>
+                            <div class="calendar-day">7</div>
+                            <div class="calendar-day">8</div>
+                            <div class="calendar-day">9</div>
+                            <div class="calendar-day highlight">10</div>
+                            <div class="calendar-day">11</div>
+                            <div class="calendar-day">12</div>
+                            <div class="calendar-day">13</div>
+                            <div class="calendar-day">14</div>
+                            <div class="calendar-day">15</div>
+                            <div class="calendar-day">16</div>
+                            <div class="calendar-day">17</div>
+                            <div class="calendar-day">18</div>
+                            <div class="calendar-day">19</div>
+                            <div class="calendar-day">20</div>
+                            <div class="calendar-day">21</div>
+                            <div class="calendar-day">22</div>
+                            <div class="calendar-day">23</div>
+                            <div class="calendar-day">24</div>
+                            <div class="calendar-day">25</div>
+                            <div class="calendar-day">26</div>
+                            <div class="calendar-day">27</div>
+                            <div class="calendar-day">28</div>
+                            <div class="calendar-day">29</div>
+                            <div class="calendar-day">30</div>
+                            <div class="calendar-day">31</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button class="px-6 py-3 border-2 border-[#4a3b32] text-[#4a3b32] rounded-lg hover:bg-[#4a3b32] hover:text-white transition">Thêm vào lịch</button>
+                    <button class="w-full px-8 py-3 bg-[#4a3b32] text-[#F9F6F0] rounded-lg hover:bg-[#3a2b22] transition font-semibold">XÁC NHẬN THAM DỰ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. ĐỊA ĐIỂM -->
+        <section class="py-20 px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="font-serif text-4xl md:text-5xl text-center mb-8 text-[#4a3b32]">TIỆC CƯỚI SẼ TỔ CHỨC TẠI</h2>
+                
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-2 text-[#4a3b32]">Nhà Hàng Tiệc Cưới Palace</h3>
+                    <p class="text-gray-700">789 Đường Võ Văn Tần, Quận 3, TP.HCM</p>
+                </div>
+                
+                <div class="rounded-lg overflow-hidden border-2 border-[#4a3b32]">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.3252214106892!2d106.68010903894768!3d10.799017992311896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDQ3JzU2LjUiTiAxMDbCsDQwJzUzLjIiRQ!5e0!3m2!1svi!2s!4v1234567890123!5m2!1svi!2s" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. LỊCH TRÌNH -->
+        <section class="py-20 px-4">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="font-serif text-4xl md:text-5xl text-center mb-12 text-[#4a3b32]">LỊCH TRÌNH NGÀY CƯỚI</h2>
+                
+                <div class="space-y-8">
+                    <div class="timeline-item">
+                        <div class="font-bold text-xl text-[#4a3b32] mb-1">17:30</div>
+                        <p class="text-gray-700">Đón khách</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="font-bold text-xl text-[#4a3b32] mb-1">18:30</div>
+                        <p class="text-gray-700">Khai tiệc</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="font-bold text-xl text-[#4a3b32] mb-1">18:45</div>
+                        <p class="text-gray-700">Rót rượu, cắt bánh</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="font-bold text-xl text-[#4a3b32] mb-1">19:00</div>
+                        <p class="text-gray-700">Phục vụ món chính</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="font-bold text-xl text-[#4a3b32] mb-1">21:00</div>
+                        <p class="text-gray-700">Kết thúc tiệc</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. SỔ LƯU BÚT -->
+        <section class="py-20 px-4">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="font-serif text-5xl text-center mb-12 text-[#4a3b32]">SỔ LƯU BÚT</h2>
+                
+                <div class="border-2 border-[#4a3b32] p-6 rounded-lg mb-8 bg-white">
+                    <input 
+                        type="text" 
+                        id="guestName" 
+                        class="w-full px-4 py-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#4a3b32]" 
+                        placeholder="Tên của bạn">
+                    
+                    <textarea 
+                        id="guestMessage" 
+                        rows="4" 
+                        class="w-full px-4 py-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#4a3b32]" 
+                        placeholder="Nhập lời chúc"></textarea>
+                    
+                    <button 
+                        onclick="addMessage()" 
+                        class="w-full px-6 py-3 bg-[#4a3b32] text-[#F9F6F0] rounded-lg hover:bg-[#3a2b22] transition font-semibold">
+                        GỬI LỜI CHÚC
+                    </button>
+                </div>
+                
+                <div id="messagesList" class="space-y-4 max-h-96 overflow-y-auto">
+                    <div class="border-2 border-[#4a3b32] p-4 rounded-lg bg-white">
+                        <h4 class="font-bold text-[#4a3b32] mb-2">Nguyễn Văn A</h4>
+                        <p class="text-gray-700">Chúc hai bạn trăm năm hạnh phúc!</p>
+                        <span class="text-sm text-gray-500">10:30 - 05/05/2026</span>
+                    </div>
+                    
+                    <div class="border-2 border-[#4a3b32] p-4 rounded-lg bg-white">
+                        <h4 class="font-bold text-[#4a3b32] mb-2">Trần Thị B</h4>
+                        <p class="text-gray-700">Hạnh phúc mãi mãi bên nhau!</p>
+                        <span class="text-sm text-gray-500">08:15 - 05/05/2026</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. HỘP MỪNG CƯỚI -->
+        <section class="py-20 px-4 relative">
+            <img src="template_4/flower_bottom.webp" alt="" class="absolute -top-12 left-0 opacity-20 rotate-45 z-0" style="width: 60%; height: auto;">
+            <div class="max-w-2xl mx-auto text-center relative z-10">
+                <h2 class="font-serif text-5xl mb-12 text-[#4a3b32]">Hộp Mừng Cưới</h2>
+                
+                <div class="border-2 border-[#4a3b32] p-8 rounded-lg bg-white">
+                    <div class="mb-6">
+                        <div class="w-48 h-64 mx-auto bg-gradient-to-br from-red-600 to-red-700 rounded-lg shadow-xl flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent"></div>
+                            <span class="text-8xl font-bold text-yellow-400 relative z-10" style="font-family: serif;">囍</span>
+                        </div>
+                    </div>
+                    <p class="text-lg text-[#4a3b32] mb-4">Nhấn để mở</p>
+                    <p class="text-sm text-gray-600">Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. FOOTER -->
+        <footer class="bg-white py-8 px-4 border-t-2 border-[#4a3b32]">
+            <p class="text-center text-lg text-[#4a3b32] mb-2">Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!</p>
+            <p class="text-center text-sm text-gray-500">chungdoi.com</p>
+        </footer>
+    </div>
+
+    <script>
+        // Auto-hide cover for preview mode
+        if (window.location.search.includes('preview=true')) {
+            document.getElementById('coverScreen').classList.add('hidden');
+        }
+        
+        // Open invitation function
+        function openInvitation() {
+            // Zoom flowers
+            const flowerBottom = document.querySelector('.cover-flower-bottom');
+            const flowerTop = document.querySelector('.cover-flower-top');
+            
+            flowerBottom.classList.add('zoom');
+            flowerTop.classList.add('zoom');
+            
+            // Hide cover screen after animation
+            setTimeout(() => {
+                document.getElementById('coverScreen').classList.add('hidden');
+            }, 600);
+        }
+        
+        // Add Message Function
+        function addMessage() {
+            const name = document.getElementById('guestName').value.trim();
+            const message = document.getElementById('guestMessage').value.trim();
+            
+            if (!name || !message) {
+                alert('Vui lòng nhập đầy đủ tên và lời chúc!');
+                return;
+            }
+            
+            const messagesList = document.getElementById('messagesList');
+            const now = new Date();
+            const dateStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} - ${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+            
+            const newMessage = document.createElement('div');
+            newMessage.className = 'border-2 border-[#4a3b32] p-4 rounded-lg bg-white';
+            newMessage.innerHTML = `
+                <h4 class="font-bold text-[#4a3b32] mb-2">${name}</h4>
+                <p class="text-gray-700">${message}</p>
+                <span class="text-sm text-gray-500">${dateStr}</span>
+            `;
+            
+            messagesList.insertBefore(newMessage, messagesList.firstChild);
+            
+            document.getElementById('guestName').value = '';
+            document.getElementById('guestMessage').value = '';
+        }
+    </script>
+</body>
+</html>

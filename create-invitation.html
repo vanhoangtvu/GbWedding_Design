@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Thiệp Cưới - GbWedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Inter:wght@300;400;500;600;700;800;900%7CSigmar%7COpen+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/libs.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/iwedding.css">
+    <link rel="stylesheet" href="css/create-invitation.css">
+</head>
+<body>
+    <header id="header" class="sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="header-wrap">
+                        <div id="logo" class="logo">
+                            <a href="index.html">
+                                <img class="logo-white" width="80" height="80" src="images/beewise-original-ko-1.png" alt="Logo">
+                                <img class="logo-color" width="80" height="80" src="images/beewise-original-ko-1.png" alt="Logo">
+                            </a>
+                        </div>
+                        <div class="nav-wrap">
+                            <nav id="mainnav" class="mainnav align-items-center" role="navigation">
+                                <ul id="menu-primary-menu" class="menu">
+                                    <li class="menu-item"><a href="templates.html">Mẫu Thiệp</a></li>
+                                    <li class="menu-item"><a href="my-invitations.html">Thiệp Của Tôi</a></li>
+                                    <li class="menu-item"><a href="guest-management.html">Khách Mời</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="btn_login ms-0 ms-lg-3 user-btns position-relative">
+                            <a class="btn_login_button" href="/user/login">Đăng nhập</a>
+                        </div>
+                        <div class="btn-menu d-block d-lg-none ms-2">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="create-invitation-page">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="page-header text-center mb-5">
+                        <h1 class="page-title">Điền Thông Tin Thiệp Cưới</h1>
+                        <p class="page-subtitle">Vui lòng điền đầy đủ thông tin cô dâu và chú rể</p>
+                    </div>
+
+                    <form id="coupleInfoForm" class="couple-info-form">
+                        <div class="form-section">
+                            <h3 class="section-title">Thông Tin Chú Rể</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Họ và tên <span class="required">*</span></label>
+                                    <input type="text" class="form-control" name="groom_name" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Tên thường gọi</label>
+                                    <input type="text" class="form-control" name="groom_nickname">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input type="tel" class="form-control" name="groom_phone">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Ảnh chú rể</label>
+                                    <input type="file" class="form-control" name="groom_photo" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="section-title">Thông Tin Cô Dâu</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Họ và tên <span class="required">*</span></label>
+                                    <input type="text" class="form-control" name="bride_name" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Tên thường gọi</label>
+                                    <input type="text" class="form-control" name="bride_nickname">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input type="tel" class="form-control" name="bride_phone">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Ảnh cô dâu</label>
+                                    <input type="file" class="form-control" name="bride_photo" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="section-title">Thông Tin Đám Cưới</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Ngày cưới <span class="required">*</span></label>
+                                    <input type="date" class="form-control" name="wedding_date" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Giờ cưới</label>
+                                    <input type="time" class="form-control" name="wedding_time">
+                                </div>
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label">Địa điểm tổ chức <span class="required">*</span></label>
+                                    <input type="text" class="form-control" name="wedding_venue" required>
+                                </div>
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label">Địa chỉ chi tiết</label>
+                                    <textarea class="form-control" name="wedding_address" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="section-title">Thông Tin Gia Đình</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Tên bố chú rể</label>
+                                    <input type="text" class="form-control" name="groom_father">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Tên mẹ chú rể</label>
+                                    <input type="text" class="form-control" name="groom_mother">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Tên bố cô dâu</label>
+                                    <input type="text" class="form-control" name="bride_father">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Tên mẹ cô dâu</label>
+                                    <input type="text" class="form-control" name="bride_mother">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions text-center">
+                            <button type="button" class="btn btn-secondary me-3" onclick="window.location.href='templates.html'">Quay lại</button>
+                            <button type="submit" class="btn btn-primary">Lưu và xem thiệp</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/libs.js"></script>
+    <script src="js/create-invitation.js"></script>
+</body>
+</html>
