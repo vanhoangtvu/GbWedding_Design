@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Ngọc Ánh & Thế Bảo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@300;400;500;600&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #800000;
+            --color-bg: #f5f1e8;
+            --color-gold: #d4af37;
+        }
+        
+        html, body {
+            background: #f5f1e8 !important;
+        }
+        
+        body {
+            font-family: 'Lora', serif;
+            background: var(--color-bg);
+            color: var(--color-primary);
+            min-height: 100vh;
+        }
+        
+        /* Invitation wrapper - giới hạn chiều rộng */
+        .invitation-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background-image: url('template_2/NENGIAY.jpg');
+            background-size: 150%;
+            background-position: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        /* Phoenix decorations */
+        .phoenix-left {
+            position: absolute;
+            top: 150px;
+            left: -20px;
+            width: 200px;
+            height: 400px;
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        .phoenix-right {
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            width: 250px;
+            height: 450px;
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .phoenix-line {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .phoenix-line-1 {
+            bottom: 50px;
+            right: 20px;
+        }
+        
+        .phoenix-line-2 {
+            top: 40%;
+            left: -50px;
+            transform: scaleX(-1);
+        }
+        
+        .phoenix-line-3 {
+            bottom: 20%;
+            left: 30px;
+            width: 350px;
+            height: 350px;
+        }
+        
+        /* Header section */
+        .header-names {
+            position: relative;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .couple-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            letter-spacing: 0.1em;
+        }
+        
+        .song-hy-section {
+            position: relative;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .song-hy-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .red-band {
+            background: rgba(128, 0, 0, 0.85);
+            height: 120px;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .song-hy {
+            font-size: 6rem;
+            color: #f5f1e8;
+            font-weight: 700;
+            z-index: 1;
+        }
+        
+        .flower-decoration {
+            position: absolute;
+            opacity: 0.5;
+            z-index: 1;
+        }
+        
+        .flower-1 {
+            width: 180px;
+            height: 180px;
+            top: 15%;
+            right: 30px;
+        }
+        
+        .flower-2 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 20px;
+            transform: scaleX(-1);
+        }
+        
+        .flower-3 {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            right: 40px;
+        }
+        
+        .flower-4 {
+            width: 160px;
+            height: 160px;
+            top: 70%;
+            left: 30px;
+        }
+        
+        .flower-bottom-right {
+            bottom: -50px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
+            opacity: 0.6;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 5;
+        }
+        
+        /* Timeline */
+        .timeline-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .timeline-time {
+            text-align: right;
+            min-width: 80px;
+        }
+        
+        .timeline-dot {
+            position: relative;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            flex-shrink: 0;
+            z-index: 2;
+            border: 3px solid #f5f1e8;
+        }
+        
+        .timeline-content {
+            text-align: left;
+            min-width: 200px;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: calc(80px + 2rem + 7px);
+            top: 0;
+            bottom: -2rem;
+            width: 2px;
+            background: var(--color-primary);
+            opacity: 0.4;
+            z-index: 1;
+        }
+        
+        /* Calendar */
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+        
+        .calendar-day.highlight {
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .phoenix-solid {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .phoenix-line {
+                width: 300px;
+                height: 300px;
+            }
+        }
+        
+        /* Cover Screen */
+        .cover-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .cover-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .cover-card {
+            background: #f5f1e8;
+            background-image: url('template_2/NENGIAY.jpg');
+            background-size: cover;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: coverFadeIn 1s ease;
+        }
+        
+        @keyframes coverFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .cover-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cover-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .cover-names {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .cover-date {
+            color: #6b5d52;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .cover-invitation {
+            color: #6b5d52;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cover-family {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin: 1rem auto 1.5rem;
+            max-width: 400px;
+        }
+        
+        .cover-message {
+            font-size: 0.875rem;
+            color: #6b5d52;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .open-button-cover {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.875rem 3rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Lora', serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .open-button-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.6), 
+                transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            50%, 100% {
+                left: 100%;
+            }
+        }
+        
+        .open-button-cover:hover {
+            background: #600000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(128, 0, 0, 0.4);
+        }
+        
+        .cover-phoenix {
+            position: absolute;
+            opacity: 0.9;
+            pointer-events: none;
+            transition: all 0.6s ease;
+        }
+        
+        .cover-phoenix.zoom-out {
+            transform: scale(1.5);
+            opacity: 1;
+        }
+        
+        .cover-phoenix-left {
+            top: -20px;
+            left: -30px;
+            width: 180px;
+            height: 300px;
+        }
+        
+        .cover-phoenix-right {
+            bottom: -20px;
+            right: -30px;
+            width: 180px;
+            height: 300px;
+            transform: scaleX(-1);
+        }
+        
+        .cover-phoenix-right.zoom-out {
+            transform: scaleX(-1) scale(1.5);
+        }
+        
+        .cover-flower {
+            position: absolute;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .cover-flower-top {
+            top: 10px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .cover-flower-bottom {
+            bottom: 10px;
+            left: 20px;
+            width: 100px;
+            height: 100px;
+        }
+        
+        /* Floating CHU HY symbols */
+        .chu-hy-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            opacity: 0.15;
+            animation: floatUp 15s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                bottom: -100px;
+                transform: translateX(0) rotate(0deg);
+            }
+            100% {
+                bottom: 100vh;
+                transform: translateX(20px) rotate(360deg);
+            }
+        }
+        
+        .chu-hy-float:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .chu-hy-float:nth-child(2) {
+            left: 30%;
+            animation-delay: 3s;
+        }
+        
+        .chu-hy-float:nth-child(3) {
+            left: 50%;
+            animation-delay: 6s;
+        }
+        
+        .chu-hy-float:nth-child(4) {
+            left: 70%;
+            animation-delay: 9s;
+        }
+        
+        .chu-hy-float:nth-child(5) {
+            left: 90%;
+            animation-delay: 12s;
+        }
+        
+        .cover-family input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            font-weight: 600;
+            text-align: center;
+            font-size: 1rem;
+            padding: 0.5rem;
+            width: 100%;
+            outline: none;
+        }
+        
+        .cover-family input::placeholder {
+            color: var(--color-primary);
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Floating CHU HY symbols on red background -->
+    <img src="template_2/CHU HY.webp" alt="" class="chu-hy-float">
+    <img src="template_2/CHU HY.webp" alt="" class="chu-hy-float">
+    <img src="template_2/CHU HY.webp" alt="" class="chu-hy-float">
+    <img src="template_2/CHU HY.webp" alt="" class="chu-hy-float">
+    <img src="template_2/CHU HY.webp" alt="" class="chu-hy-float">
+    
+    <!-- Cover Screen -->
+    <div class="cover-screen" id="coverScreen">
+        <div class="cover-card">
+            <img src="template_2/Phuong.webp" alt="" class="cover-phoenix cover-phoenix-left" id="coverPhoenixLeft">
+            <img src="template_2/Phuong.webp" alt="" class="cover-phoenix cover-phoenix-right" id="coverPhoenixRight">
+            <img src="template_2/HOA.webp" alt="" class="cover-flower cover-flower-top">
+            <img src="template_2/HOA.webp" alt="" class="cover-flower cover-flower-bottom">
+            
+            <div class="cover-icon">
+                <img src="template_2/chinese_happiness.webp" alt="囍">
+            </div>
+            
+            <h1 class="cover-names">Ngọc Ánh<br>&<br>Thế Bảo</h1>
+            <p class="cover-date">3 tháng 5, 2026</p>
+            <p class="cover-invitation">Thân Mời</p>
+            
+            <div class="cover-family">
+                <input type="text" id="guestNameCover" placeholder="Gia đình Anh Mạnh" value="Gia đình Anh Mạnh">
+            </div>
+            
+            <p class="cover-message">đến dự buổi tiệc chung vui cùng gia đình</p>
+            
+            <button class="open-button-cover" onclick="openInvitation()">Mở thiệp</button>
+        </div>
+    </div>
+    <div class="invitation-wrapper">
+        <!-- Phoenix Decorations -->
+        <img src="template_2/Phuong 2.webp" alt="" class="phoenix-left">
+        <img src="template_2/Phuong.webp" alt="" class="phoenix-right" style="transform: scaleX(-1);">
+        
+        <!-- Phoenix Line (mờ) - nhiều vị trí -->
+        <img src="template_2/Phuong line.webp" alt="" class="phoenix-line phoenix-line-1">
+        <img src="template_2/Phuong line.webp" alt="" class="phoenix-line phoenix-line-2">
+        <img src="template_2/Phuong line.webp" alt="" class="phoenix-line phoenix-line-3">
+        
+        <!-- Flower decorations -->
+        <img src="template_2/HOA.webp" alt="" class="flower-decoration flower-1">
+        <img src="template_2/HOA.webp" alt="" class="flower-decoration flower-2">
+        <img src="template_2/HOA.webp" alt="" class="flower-decoration flower-3">
+        <img src="template_2/HOA.webp" alt="" class="flower-decoration flower-4">
+        
+        <div class="content-wrapper">
+        <!-- HEADER: Tên cô dâu chú rể -->
+        <div class="header-names">
+            <div class="couple-name">NGỌC ÁNH</div>
+            <div class="couple-name">THẾ BẢO</div>
+        </div>
+        
+        <!-- Song Hỷ Section -->
+        <div class="song-hy-section">
+            <div class="red-band">
+                <div class="song-hy">囍</div>
+            </div>
+            <img src="template_2/HOA.webp" alt="" class="flower-decoration flower-bottom-right">
+        </div>
+        
+        <!-- 1. THÔNG TIN GIA ĐÌNH -->
+        <section class="relative py-8">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="h-px w-16 bg-[#800000]"></div>
+                        <h2 class="font-serif text-2xl md:text-3xl text-[#800000]">THÔNG TIN LỄ CƯỚI</h2>
+                        <div class="h-px w-16 bg-[#800000]"></div>
+                    </div>
+                </div>
+                
+                <!-- Thông tin hai họ -->
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Nhà Trai -->
+                    <div class="text-center p-6 bg-white/50 rounded-lg shadow-md">
+                        <p class="text-sm text-gray-600 mb-2">Ông Bà</p>
+                        <p class="font-semibold text-lg mb-1">Lê Văn Khoa</p>
+                        <p class="font-semibold text-lg mb-4">Phạm Thị Kim Oanh</p>
+                        <p class="text-sm text-gray-700">123 Đường Lê Lợi, Quận 1, TP.HCM</p>
+                    </div>
+                    
+                    <!-- Nhà Gái -->
+                    <div class="text-center p-6 bg-white/50 rounded-lg shadow-md">
+                        <p class="text-sm text-gray-600 mb-2">Ông Bà</p>
+                        <p class="font-semibold text-lg mb-1">Trần Văn Tuấn</p>
+                        <p class="font-semibold text-lg mb-4">Lê Thị Hương</p>
+                        <p class="text-sm text-gray-700">456 Đường Nguyễn Huệ, Quận 1, TP.HCM</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CÔ DÂU CHÚ RỂ & LỄ THÀNH HÔN -->
+        <section class="py-20 px-4 text-center">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-5xl md:text-7xl mb-2 text-[#800000]" style="font-family: 'Lora', serif; letter-spacing: normal; word-spacing: normal;">Lê Ngọc Ánh</h1>
+                    <p class="text-sm text-gray-600 mb-6">ÚT NỮ</p>
+                    <div class="text-4xl my-4">&</div>
+                    <h1 class="text-5xl md:text-7xl mb-2 text-[#800000]" style="font-family: 'Lora', serif; letter-spacing: normal; word-spacing: normal;">Trần Thế Bảo</h1>
+                    <p class="text-sm text-gray-600">ÚT NAM</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <p class="text-lg md:text-xl">LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI TƯ GIA</p>
+                    <p class="text-4xl md:text-5xl font-serif font-bold text-[#800000]">VÀO LÚC 09:00</p>
+                    <div class="flex items-center justify-center gap-4 text-2xl md:text-3xl font-serif">
+                        <span>CHỦ NHẬT</span>
+                        <span class="text-5xl font-bold text-[#800000]">03</span>
+                        <span>THÁNG 05</span>
+                        <span class="text-5xl font-bold text-[#800000]">2026</span>
+                    </div>
+                    <p class="text-sm text-gray-600 italic">(Tức ngày 17/03 năm Bính Ngọ)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ALBUM ẢNH -->
+        <section class="py-20 px-4 bg-white/30">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-serif text-4xl md:text-5xl text-center mb-12 text-[#800000]">ALBUM ẢNH CƯỚI</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" alt="Wedding photo 1" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=400" alt="Wedding photo 2" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="aspect-square overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400" alt="Wedding photo 3" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="aspect-square overflow-hidden rounded-lg relative">
+                        <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400" alt="Wedding photo 4" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <span class="text-white text-4xl font-bold">+2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. THÔNG TIN TIỆC CƯỚI & LỊCH -->
+        <section class="py-20 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="font-serif text-4xl md:text-5xl mb-8 text-[#800000]">TIỆC CƯỚI SẼ DIỄN RA VÀO LÚC:</h2>
+                
+                <p class="text-5xl font-serif font-bold mb-4 text-[#800000]">18:00</p>
+                
+                <div class="flex items-center justify-center gap-4 text-2xl md:text-3xl font-serif mb-8">
+                    <span>CHỦ NHẬT</span>
+                    <span class="text-5xl font-bold text-[#800000]">03</span>
+                    <span>THÁNG 05</span>
+                    <span class="text-5xl font-bold text-[#800000]">2026</span>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-12">
+                    <div class="bg-white/50 p-4 rounded-lg shadow">
+                        <p class="text-sm text-gray-600">ĐÓN KHÁCH</p>
+                        <p class="text-2xl font-bold text-[#800000]">17:30</p>
+                    </div>
+                    <div class="bg-white/50 p-4 rounded-lg shadow">
+                        <p class="text-sm text-gray-600">KHAI TIỆC</p>
+                        <p class="text-2xl font-bold text-[#800000]">18:00</p>
+                    </div>
+                </div>
+                
+                <!-- Calendar -->
+                <div class="max-w-xs mx-auto mb-8">
+                    <div class="bg-white/50 p-4 rounded-lg shadow">
+                        <p class="font-bold mb-4 text-[#800000]">Tháng 05/2026</p>
+                        <div class="grid grid-cols-7 gap-2">
+                            <div class="calendar-day font-semibold text-gray-600">CN</div>
+                            <div class="calendar-day font-semibold text-gray-600">T2</div>
+                            <div class="calendar-day font-semibold text-gray-600">T3</div>
+                            <div class="calendar-day font-semibold text-gray-600">T4</div>
+                            <div class="calendar-day font-semibold text-gray-600">T5</div>
+                            <div class="calendar-day font-semibold text-gray-600">T6</div>
+                            <div class="calendar-day font-semibold text-gray-600">T7</div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day">1</div>
+                            <div class="calendar-day">2</div>
+                            <div class="calendar-day highlight">3</div>
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day">5</div>
+                            <div class="calendar-day">6</div>
+                            <div class="calendar-day">7</div>
+                            <div class="calendar-day">8</div>
+                            <div class="calendar-day">9</div>
+                            <div class="calendar-day">10</div>
+                            <div class="calendar-day">11</div>
+                            <div class="calendar-day">12</div>
+                            <div class="calendar-day">13</div>
+                            <div class="calendar-day">14</div>
+                            <div class="calendar-day">15</div>
+                            <div class="calendar-day">16</div>
+                            <div class="calendar-day">17</div>
+                            <div class="calendar-day">18</div>
+                            <div class="calendar-day">19</div>
+                            <div class="calendar-day">20</div>
+                            <div class="calendar-day">21</div>
+                            <div class="calendar-day">22</div>
+                            <div class="calendar-day">23</div>
+                            <div class="calendar-day">24</div>
+                            <div class="calendar-day">25</div>
+                            <div class="calendar-day">26</div>
+                            <div class="calendar-day">27</div>
+                            <div class="calendar-day">28</div>
+                            <div class="calendar-day">29</div>
+                            <div class="calendar-day">30</div>
+                            <div class="calendar-day">31</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="px-6 py-3 border-2 border-[#800000] text-[#800000] rounded-lg hover:bg-[#800000] hover:text-white transition-colors">
+                        Thêm vào lịch
+                    </button>
+                    <button class="px-8 py-3 bg-[#800000] text-white rounded-lg hover:bg-[#600000] transition-colors font-semibold">
+                        XÁC NHẬN THAM DỰ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ĐỊA ĐIỂM -->
+        <section class="py-20 px-4 bg-white/30">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="font-serif text-4xl md:text-5xl text-center mb-8 text-[#800000]">TIỆC CƯỚI SẼ TỔ CHỨC TẠI</h2>
+                
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-2 text-[#800000]">White Palace Hoàng Văn Thụ</h3>
+                    <p class="text-gray-700">194 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP.HCM</p>
+                </div>
+                
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.3252214103894!2d106.68010931533432!3d10.799017992311896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b6f4d6e8e3%3A0x5b6e3e2e3e2e3e2e!2zMTk0IEhvw6BuZyBWxINuIFRo4bulLCBQaMaw4budbmcgOSwgUGjDuiBOaHXhuq1uLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1234567890123!5m2!1svi!2s"
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. LỊCH TRÌNH -->
+        <!-- 6. LỊCH TRÌNH -->
+        <section class="py-20 px-4">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="font-serif text-4xl md:text-5xl text-center mb-12 text-[#800000]">LỊCH TRÌNH NGÀY CƯỚI</h2>
+                
+                <div class="relative max-w-2xl mx-auto">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="space-y-8">
+                        <div class="timeline-item">
+                            <div class="timeline-time">
+                                <div class="font-bold text-xl text-[#800000]">17:30</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <p class="text-gray-700">Đón khách</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-time">
+                                <div class="font-bold text-xl text-[#800000]">18:30</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <p class="text-gray-700">Khai tiệc</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-time">
+                                <div class="font-bold text-xl text-[#800000]">18:45</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <p class="text-gray-700">Rót rượu, cắt bánh</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-time">
+                                <div class="font-bold text-xl text-[#800000]">19:00</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <p class="text-gray-700">Phục vụ món chính</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-time">
+                                <div class="font-bold text-xl text-[#800000]">21:00</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <p class="text-gray-700">Kết thúc tiệc</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. SỔ LƯU BÚT -->
+        <section class="py-20 px-4 bg-white/30">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="font-cursive text-5xl text-center mb-12 text-[#800000]">Sổ lưu bút</h2>
+                
+                <!-- Form -->
+                <div class="bg-white/50 p-6 rounded-lg shadow-md mb-8">
+                    <input 
+                        type="text" 
+                        id="guestName"
+                        placeholder="Tên của bạn" 
+                        class="w-full px-4 py-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#800000]"
+                    >
+                    <textarea 
+                        id="guestMessage"
+                        placeholder="Nhập lời chúc" 
+                        rows="4" 
+                        class="w-full px-4 py-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-[#800000]"
+                    ></textarea>
+                    <button 
+                        onclick="addMessage()"
+                        class="w-full px-6 py-3 border-2 border-[#800000] text-[#800000] rounded-lg hover:bg-[#800000] hover:text-white transition-colors font-semibold"
+                    >
+                        GỬI LỜI CHÚC
+                    </button>
+                </div>
+                
+                <!-- Messages List -->
+                <div id="messagesList" class="space-y-4 max-h-96 overflow-y-auto">
+                    <div class="bg-white/70 p-4 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-[#800000]">Nguyễn Văn A</h4>
+                            <span class="text-sm text-gray-500">10:30 - 01/05/2026</span>
+                        </div>
+                        <p class="text-gray-700">Chúc hai bạn trăm năm hạnh phúc, bên nhau suốt đời!</p>
+                    </div>
+                    <div class="bg-white/70 p-4 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-[#800000]">Trần Thị B</h4>
+                            <span class="text-sm text-gray-500">09:15 - 01/05/2026</span>
+                        </div>
+                        <p class="text-gray-700">Hạnh phúc mãi mãi bên nhau nhé!</p>
+                    </div>
+                    <div class="bg-white/70 p-4 rounded-lg border border-gray-200">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-[#800000]">Lê Văn C</h4>
+                            <span class="text-sm text-gray-500">08:45 - 01/05/2026</span>
+                        </div>
+                        <p class="text-gray-700">Chúc mừng đám cưới của hai bạn!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. HỘP MỪNG CƯỚI -->
+        <section class="py-20 px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="font-cursive text-5xl text-center mb-12 text-[#800000]">Hộp Mừng Cưới</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Cô Dâu -->
+                    <div class="bg-white/50 p-6 rounded-lg shadow-lg border-2 border-[#800000]">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-[#800000]">Cô Dâu - Ngọc Ánh</h3>
+                        <div class="bg-white p-4 rounded-lg mb-4 flex items-center justify-center">
+                            <img src="https://via.placeholder.com/200x200?text=QR+Code" alt="QR Code" class="w-48 h-48">
+                        </div>
+                        <div class="text-center space-y-2">
+                            <p class="font-semibold">Vietcombank</p>
+                            <p class="text-lg font-bold text-[#800000]">1234567890</p>
+                            <p>LÊ NGỌC ÁNH</p>
+                        </div>
+                        <button class="w-full mt-4 px-6 py-2 border-2 border-[#800000] text-[#800000] rounded-lg hover:bg-[#800000] hover:text-white transition-colors">
+                            Lưu QR
+                        </button>
+                    </div>
+                    
+                    <!-- Chú Rể -->
+                    <div class="bg-white/50 p-6 rounded-lg shadow-lg border-2 border-[#800000]">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-[#800000]">Chú Rể - Thế Bảo</h3>
+                        <div class="bg-white p-4 rounded-lg mb-4 flex items-center justify-center">
+                            <img src="https://via.placeholder.com/200x200?text=QR+Code" alt="QR Code" class="w-48 h-48">
+                        </div>
+                        <div class="text-center space-y-2">
+                            <p class="font-semibold">Vietcombank</p>
+                            <p class="text-lg font-bold text-[#800000]">0987654321</p>
+                            <p>TRẦN THẾ BẢO</p>
+                        </div>
+                        <button class="w-full mt-4 px-6 py-2 border-2 border-[#800000] text-[#800000] rounded-lg hover:bg-[#800000] hover:text-white transition-colors">
+                            Lưu QR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. FOOTER -->
+        <footer class="bg-[#800000] py-8 text-center">
+            <p class="text-[#f5f1e8] text-lg">Sự hiện diện của quý khách là niềm vinh hạnh của gia đình chúng tôi!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Auto-open for preview mode
+        if (window.location.search.includes('preview=true')) {
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    const coverScreen = document.getElementById('coverScreen');
+                    if (coverScreen) {
+                        coverScreen.style.display = 'none';
+                    }
+                }, 100);
+            });
+        }
+        
+        // Open Invitation
+        function openInvitation() {
+            const coverScreen = document.getElementById('coverScreen');
+            const phoenixLeft = document.getElementById('coverPhoenixLeft');
+            const phoenixRight = document.getElementById('coverPhoenixRight');
+            
+            // Zoom phoenixes
+            phoenixLeft.classList.add('zoom-out');
+            phoenixRight.classList.add('zoom-out');
+            
+            // Hide cover after animation
+            setTimeout(() => {
+                coverScreen.classList.add('hidden');
+            }, 400);
+        }
+        
+        // Add Message Function
+        function addMessage() {
+            const name = document.getElementById('guestName').value.trim();
+            const message = document.getElementById('guestMessage').value.trim();
+
+            if (!name || !message) {
+                alert('Vui lòng nhập đầy đủ tên và lời chúc!');
+                return;
+            }
+
+            const messagesList = document.getElementById('messagesList');
+            const now = new Date();
+            const dateStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} - ${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+            
+            const newMessage = document.createElement('div');
+            newMessage.className = 'bg-white/70 p-4 rounded-lg border border-gray-200';
+            newMessage.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-[#800000]">${name}</h4>
+                    <span class="text-sm text-gray-500">${dateStr}</span>
+                </div>
+                <p class="text-gray-700">${message}</p>
+            `;
+            
+            messagesList.insertBefore(newMessage, messagesList.firstChild);
+            
+            document.getElementById('guestName').value = '';
+            document.getElementById('guestMessage').value = '';
+        }
+    </script>
+    </div>
+</body>
+</html>
