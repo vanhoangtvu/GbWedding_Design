@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@300;400;500&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-primary: #4a5d3f;
-            --color-secondary: #8b7355;
+            --color-primary: #f4a5b9;
+            --color-secondary: #e89aae;
             --color-bg: #fffef7;
         }
         
@@ -175,24 +175,41 @@
             position: absolute;
             opacity: 0.8;
             pointer-events: none;
-            transition: all 0.6s ease;
         }
         
-        .cover-floral.zoom-out {
-            transform: scale(1.5);
-            opacity: 1;
+        /* Flying hearts animation */
+        .heart-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            animation: flyHeart 2s ease-out forwards;
+        }
+        
+        @keyframes flyHeart {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
         }
         
         .cover-floral-top-left {
             top: -20px;
             left: -20px;
-            width: 150px;
-            height: 150px;
+            width: 225px;
+            height: 225px;
+            transform: rotate(180deg);
         }
         
         .cover-floral-bottom-right {
             bottom: -20px;
             right: -20px;
+            width: 225px;
+            height: 225px;
+        
             width: 150px;
             height: 150px;
         }
@@ -203,6 +220,7 @@
             pointer-events: none;
             z-index: 1;
             animation: gentleSway 6s ease-in-out infinite;
+            height: auto;
         }
         
         @keyframes gentleSway {
@@ -284,6 +302,7 @@
             pointer-events: none;
             z-index: 1;
             animation: gentleFloat 8s ease-in-out infinite;
+            height: auto;
         }
         
         @keyframes gentleFloat {
@@ -299,16 +318,17 @@
             top: -50px;
             left: -50px;
             width: 280px;
-            height: 280px;
+            height: auto;
             animation-delay: 0s;
             opacity: 0.75;
+            transform: rotate(180deg);
         }
         
         .floral-top-right {
             top: -50px;
             right: -50px;
             width: 280px;
-            height: 280px;
+            height: auto;
             transform: scaleX(-1);
             animation-delay: 2s;
             opacity: 0.75;
@@ -318,7 +338,7 @@
             bottom: -50px;
             left: -50px;
             width: 280px;
-            height: 280px;
+            height: auto;
             transform: scaleY(-1);
             animation-delay: 4s;
             opacity: 0.75;
@@ -328,8 +348,8 @@
             bottom: -50px;
             right: -50px;
             width: 280px;
-            height: 280px;
-            transform: scale(-1, -1);
+            height: auto;
+            transform: scale(-1, -1) rotate(180deg);
             animation-delay: 6s;
             opacity: 0.75;
         }
@@ -339,7 +359,7 @@
             top: 30%;
             left: -80px;
             width: 450px;
-            height: 450px;
+            height: auto;
             opacity: 0.3;
             animation-delay: 1s;
         }
@@ -348,7 +368,7 @@
             top: 50%;
             right: -80px;
             width: 450px;
-            height: 450px;
+            height: auto;
             transform: scaleX(-1);
             opacity: 0.3;
             animation-delay: 3s;
@@ -358,7 +378,7 @@
             top: 60%;
             left: -60px;
             width: 420px;
-            height: 420px;
+            height: auto;
             opacity: 0.25;
             transform: rotate(15deg);
             animation-delay: 5s;
@@ -368,7 +388,7 @@
             top: 40%;
             right: -60px;
             width: 420px;
-            height: 420px;
+            height: auto;
             transform: scaleX(-1) rotate(-15deg);
             opacity: 0.25;
             animation-delay: 7s;
@@ -394,7 +414,7 @@
         @media (max-width: 768px) {
             .floral-decoration {
                 width: 250px !important;
-                height: 250px !important;
+                height: auto !important;
             }
             
             .floral-mid-left,
@@ -402,11 +422,12 @@
             .floral-mid-left-2,
             .floral-mid-right-2 {
                 width: 200px !important;
-                height: 200px !important;
+                height: auto !important;
             }
             
             .floating-leaf {
                 width: 50px !important;
+                height: auto !important;
             }
             
             .floating-leaf:nth-child(n+5) {
@@ -441,11 +462,19 @@
         
         .photo-frame {
             position: absolute;
-            border: 4px solid #c9a961;
-            padding: 8px;
-            background: white;
+            padding: 0;
             box-shadow: 0 8px 30px rgba(0,0,0,0.15);
             z-index: 2;
+            overflow: visible;
+        }
+        
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -45px;
+            background: url('template_1/khunganhhoa.png') center/contain no-repeat transparent;
+            z-index: 2;
+            pointer-events: none;
         }
         
         .photo-frame img {
@@ -521,7 +550,7 @@
             top: 10%;
             left: -5%;
             width: 180px;
-            height: 180px;
+            height: auto;
             opacity: 0.7;
             z-index: 1;
             animation: gentleFloat 7s ease-in-out infinite;
@@ -532,7 +561,7 @@
             bottom: 10%;
             right: -5%;
             width: 180px;
-            height: 180px;
+            height: auto;
             opacity: 0.7;
             z-index: 1;
             transform: scaleX(-1);
@@ -583,7 +612,7 @@
             .couple-flower-left,
             .couple-flower-right {
                 width: 120px;
-                height: 120px;
+                height: auto;
             }
         }
         
@@ -682,8 +711,8 @@
     <!-- Cover Screen -->
     <div class="cover-screen" id="coverScreen">
         <div class="cover-card">
-            <img src="template_1/flower.webp" alt="" class="cover-floral cover-floral-top-left">
-            <img src="template_1/flower.webp" alt="" class="cover-floral cover-floral-bottom-right">
+            <img src="template_1/hoa.png" alt="" class="cover-floral cover-floral-top-left">
+            <img src="template_1/hoa.png" alt="" class="cover-floral cover-floral-bottom-right">
             
             <div class="cover-heart">
                 <svg viewBox="0 0 24 24">
@@ -702,24 +731,24 @@
     <!-- Main Invitation Wrapper -->
     <div class="invitation-wrapper">
         <!-- Floating Leaves -->
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
-        <img src="template_1/flower.webp" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
+        <img src="template_1/flower.png" alt="" class="floating-leaf">
         
         <!-- Fixed Floral Decorations -->
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-top-left">
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-top-right">
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-mid-left">
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-mid-right">
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-mid-left-2">
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-mid-right-2">
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-bottom-left">
-        <img src="template_1/flower.webp" alt="" class="floral-decoration floral-bottom-right">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-top-left">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-top-right">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-mid-left">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-mid-right">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-mid-left-2">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-mid-right-2">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-bottom-left">
+        <img src="template_1/flower.png" alt="" class="floral-decoration floral-bottom-right">
         
         <div class="content-wrapper" id="mainContent">
         <!-- 1. HERO SECTION -->
@@ -752,11 +781,11 @@
                     <div class="green-divider"></div>
                     
                     <!-- Decorative flowers -->
-                    <img src="template_1/flower.webp" alt="" class="couple-flower-left">
-                    <img src="template_1/flower.webp" alt="" class="couple-flower-right">
+                    <img src="template_1/flower.png" alt="" class="couple-flower-left">
+                    <img src="template_1/flower.png" alt="" class="couple-flower-right">
                     
                     <div class="photo-frame photo-frame-groom">
-                        <img src="template_1/banner.webp" alt="Chú rể">
+                        <img src="template_1/banner.jpg" alt="Chú rể">
                         <div class="photo-label photo-label-groom">
                             <span class="role">Trưởng Nam</span>
                             <span class="name">Minh Quân</span>
@@ -764,7 +793,7 @@
                     </div>
                     
                     <div class="photo-frame photo-frame-bride">
-                        <img src="template_1/banner.webp" alt="Cô dâu">
+                        <img src="template_1/banner.jpg" alt="Cô dâu">
                         <div class="photo-label photo-label-bride">
                             <span class="role">Út Nữ</span>
                             <span class="name">Thu Hà</span>
@@ -793,12 +822,12 @@
                         </div>
                         
                         <div class="space-y-3 text-left">
-                            <div class="border-l-3 border-green-600 pl-4">
+                            <div class="border-l-3 border-pink-400 pl-4">
                                 <p class="text-sm text-gray-600">Ông Bà</p>
                                 <p class="font-semibold" style="color: var(--color-primary); font-family: 'Lora', serif; letter-spacing: normal;">Trần Văn Hùng</p>
                                 <p class="font-semibold" style="color: var(--color-primary); font-family: 'Lora', serif; letter-spacing: normal;">Hạm Thị Lan</p>
                             </div>
-                            <div class="border-l-3 border-green-600 pl-4">
+                            <div class="border-l-3 border-pink-400 pl-4">
                                 <p class="text-sm text-gray-600">Địa chỉ</p>
                                 <p style="color: var(--color-primary);">25 Ngõ 12 Đặng Văn Ngữ, Đống Đa, Hà Nội</p>
                             </div>
@@ -813,12 +842,12 @@
                         </div>
                         
                         <div class="space-y-3 text-left">
-                            <div class="border-l-3 border-green-600 pl-4">
+                            <div class="border-l-3 border-pink-400 pl-4">
                                 <p class="text-sm text-gray-600">Ông Bà</p>
                                 <p class="font-semibold" style="color: var(--color-primary); font-family: 'Lora', serif; letter-spacing: normal;">Nguyễn Văn Bình</p>
                                 <p class="font-semibold" style="color: var(--color-primary); font-family: 'Lora', serif; letter-spacing: normal;">Phan Thị Hương</p>
                             </div>
-                            <div class="border-l-3 border-green-600 pl-4">
+                            <div class="border-l-3 border-pink-400 pl-4">
                                 <p class="text-sm text-gray-600">Địa chỉ</p>
                                 <p style="color: var(--color-primary);">18 Ngõ 86 Chùa Hà, Cầu Giấy, Hà Nội</p>
                             </div>
@@ -1063,13 +1092,13 @@
                             type="text" 
                             id="guestName"
                             placeholder="Nhập tên của bạn" 
-                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-green-600"
+                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-pink-400"
                             style="border-color: var(--color-primary);">
                         <textarea 
                             id="guestMessage"
                             placeholder="Nhập lời chúc của bạn" 
                             rows="4"
-                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-green-600"
+                            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-pink-400"
                             style="border-color: var(--color-primary);"></textarea>
                         <button 
                             onclick="addMessage()"
@@ -1155,14 +1184,11 @@
         function openInvitation() {
             const coverScreen = document.getElementById('coverScreen');
             const mainContent = document.getElementById('mainContent');
-            const florals = document.querySelectorAll('.cover-floral');
             
-            // Zoom out flowers
-            florals.forEach(floral => {
-                floral.classList.add('zoom-out');
-            });
+            // Create flying hearts
+            createFlyingHearts();
             
-            // Hide cover screen after flower animation
+            // Hide cover screen
             setTimeout(() => {
                 coverScreen.classList.add('hidden');
             }, 400);
@@ -1170,6 +1196,37 @@
             setTimeout(() => {
                 mainContent.classList.add('visible');
             }, 500);
+        }
+        
+        // Create flying hearts effect
+        function createFlyingHearts() {
+            const heartCount = 15;
+            const colors = ['#f4a5b9', '#e89aae', '#ff69b4', '#ffb6c1'];
+            
+            for (let i = 0; i < heartCount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-particle';
+                    heart.innerHTML = '❤️';
+                    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                    heart.style.left = '50%';
+                    heart.style.top = '50%';
+                    
+                    const angle = (Math.PI * 2 * i) / heartCount;
+                    const distance = 300 + Math.random() * 200;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    heart.style.setProperty('--tx', tx + 'px');
+                    heart.style.setProperty('--ty', ty + 'px');
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 2000);
+                }, i * 50);
+            }
         }
         
         // Countdown Timer
